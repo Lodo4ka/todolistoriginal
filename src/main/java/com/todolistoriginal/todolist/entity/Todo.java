@@ -13,7 +13,7 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String login;
 
     private String comment;
 
@@ -55,12 +55,12 @@ public class Todo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setLogin(final String login) {
+        this.login = login;
     }
 
     public String getComment() {

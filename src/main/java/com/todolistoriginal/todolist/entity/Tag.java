@@ -13,10 +13,15 @@ public class Tag {
     @Column(name = "ID")
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "tags")
     private Set<Todo> todoList = new HashSet<>();
+
+    public Tag(final String name) {
+        this.name = name;
+    }
 
 
     public void addTodo(Todo todo){
