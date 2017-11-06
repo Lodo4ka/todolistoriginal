@@ -6,11 +6,11 @@ import com.todolistoriginal.todolist.entity.User;
 import com.todolistoriginal.todolist.repository.TodoRepository;
 import com.todolistoriginal.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-public class TodoServiceImpl implements TodoService{
+@Service
+public class TodoServiceImpl implements TodoService {
 
     @Autowired
     private TodoRepository todoRepository;
@@ -22,8 +22,12 @@ public class TodoServiceImpl implements TodoService{
     private TagServiceImpl tagService;
 
 
+
+
     @Override
     public Todo create(final Long userId, final Todo todo) {
+
+        validateForCreate(userId, todo);
 
         Todo newTodo = new Todo();
 
@@ -39,26 +43,52 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     @Transactional
-    public Todo update(Long userId, final Todo todo) {
+    public Todo update(final  Long userId, final Todo todo) {
+
+        validateForUpdate(userId, todo);
+        authorizationForUpdate(userId, todo);
 
         Todo findOne = todoRepository.findOne(userId);
         findOne.setComment(todo.getComment());
         findOne.setEndDate(todo.getEndDate());
         findOne.setStartDate(todo.getStartDate());
         findOne.setLogin(todo.getLogin());
-        findOne.setTags(todo.getTags());
         findOne.setType(todo.getType());
         findOne.setWeight(todo.getWeight());
         findOne.setWeight(todo.getWeight());
+        findOne.setTags(todo.getTags());
 
         return findOne;
     }
 
+    private void validateForUpdate(final Long userId, final Todo todo){
+
+    }
+
+    private void authorizationForUpdate(final Long userID, final Todo todo){
+
+    }
+
+    private void validateForCreate(final Long userId, final Todo todo){
+
+    }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Todo> getList(final Long userId) {
-        return todoRepository.findByUserId(userId);
+    public Todo get(final Long userId) {
+        authorizationForGet(userId);
+        validateForGet(userId);
+        Todo byUserId = todoRepository.findByUserId(userId);
+        return byUserId;
+    }
+
+    private void validateForGet(Long userID){
+
+    }
+
+    private void authorizationForGet(Long userId){
+
+
     }
 
     @Override

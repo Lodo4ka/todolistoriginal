@@ -2,6 +2,7 @@ package com.todolistoriginal.todolist.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -57,7 +58,39 @@ public class Tag {
         return todoList;
     }
 
-    public void setTodoList(final Set<Todo> todoList) {
-        this.todoList = todoList;
+    public void removeTodo(Todo todo){
+        removeTodo(todo, false);
+    }
+
+    public void removeTodo(Todo todo, boolean otherSideWasAffected){
+        this.getTodoList().remove(todo);
+        if(otherSideWasAffected){
+            return;
+        }
+        todo.removeTag(this, true);
+    }
+
+    public boolean equals(Object o) {
+
+        if(!(o instanceof Tag)){
+            return false;
+        }
+
+        Tag that = (Tag) o;
+
+        if(!Objects.equals(this.getId(), that.getId())){
+            return false;
+        }
+
+        if(!Objects.equals(this.getName(), that.getName())){
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.getId(), this.getName());
     }
 }

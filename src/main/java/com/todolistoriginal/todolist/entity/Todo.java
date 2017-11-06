@@ -2,8 +2,8 @@ package com.todolistoriginal.todolist.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "TODO")
@@ -14,6 +14,9 @@ public class Todo {
     private Long id;
 
     private String login;
+
+    @Column(nullable = false)
+    private String name;
 
     private String comment;
 
@@ -45,6 +48,18 @@ public class Todo {
         if (otherSideHasBeenAlreadySet) {
             return;
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setTags(final Set<Tag> tags) {
+        this.tags = tags;
     }
 
     public Long getId() {
@@ -115,8 +130,58 @@ public class Todo {
         return tags;
     }
 
-    public void setTags(final Set<Tag> tags) {
-        this.tags = tags;
+    public void removeAllTags() {
+        getTags().stream().collect(Collectors.toList()).forEach(this::removeTag);
+    }
+
+    public void setTags(final Collection<Tag> tags) {
+        this.removeAllTags();
+        tags.forEach(this::addTag);
+    }
+
+    public void removeTag(Tag tag) {
+        removeTag(tag, false);
+    }
+
+    public void removeTag(Tag tag, boolean otherSideRemoved) {
+        this.getTags().remove(tag);
+        if (otherSideRemoved) {
+            return;
+        }
+        tag.removeTodo(this, true);
+    }
+
+    public boolean equals(Object o) {
+
+        if (!(o instanceof Todo)) {
+            return false;
+        }
+
+        Todo that = (Todo) o;
+
+        if (!Objects.equals(this.getId(), that.getId())) {
+            return false;
+        }
+
+        if (!Objects.equals(this.getName(), that.getName())) {
+            return false;
+        }
+
+        if (!Objects.equals(this.getStartDate(), that.getStartDate())) {
+            return false;
+        }
+
+        if (!Objects.equals(this.getEndDate(), that.getEndDate())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(), this.getName(), this.getStartDate(),
+                this.getEndDate());
     }
 }
 

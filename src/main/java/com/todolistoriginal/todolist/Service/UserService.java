@@ -2,6 +2,7 @@ package com.todolistoriginal.todolist.Service;
 
 
 import com.todolistoriginal.todolist.entity.User;
+import org.springframework.stereotype.Service;
 
 public interface UserService {
 
