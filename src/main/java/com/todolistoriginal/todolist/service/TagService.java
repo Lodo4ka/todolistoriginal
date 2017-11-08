@@ -1,4 +1,4 @@
-package com.todolistoriginal.todolist.Service;
+package com.todolistoriginal.todolist.service;
 
 import com.todolistoriginal.todolist.entity.Tag;
 

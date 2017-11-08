@@ -123,7 +123,7 @@ public class Todo {
     }
 
     public void setUser(final User user) {
-        this.user = user;
+        setUser(user, false);
     }
 
     public Set<Tag> getTags() {
@@ -182,6 +182,27 @@ public class Todo {
     public int hashCode() {
         return Objects.hash(this.getId(), this.getName(), this.getStartDate(),
                 this.getEndDate());
+    }
+
+    public void setUser(final User user, final boolean otherSideWasAffected) {
+        this.user = user;
+        if(otherSideWasAffected){
+            return;
+        }
+        user.addTodo(this, true);
+    }
+
+    public void removeUser(){
+        removeUser(false);
+    }
+
+    public void removeUser(final boolean otherSideRemoved) {
+        User user = this.getUser();
+        this.user = null;
+        if(otherSideRemoved){
+            return;
+        }
+        user.removeTodo(this, true);
     }
 }
 

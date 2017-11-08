@@ -1,8 +1,7 @@
-package com.todolistoriginal.todolist.Service;
+package com.todolistoriginal.todolist.service;
 
 
 import com.todolistoriginal.todolist.entity.Todo;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,5 +13,7 @@ public interface TodoService {
 
     Todo get(Long userId);
 
-    void remove(Todo todo);
+    List<Todo> getList();
+
+    void remove(Long todoId);
 }

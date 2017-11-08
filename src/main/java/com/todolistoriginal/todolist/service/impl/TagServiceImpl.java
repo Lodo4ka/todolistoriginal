@@ -1,6 +1,6 @@
-package com.todolistoriginal.todolist.Service.impl;
+package com.todolistoriginal.todolist.service.impl;
 
-import com.todolistoriginal.todolist.Service.TagService;
+import com.todolistoriginal.todolist.service.TagService;
 import com.todolistoriginal.todolist.entity.Tag;
 import com.todolistoriginal.todolist.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;

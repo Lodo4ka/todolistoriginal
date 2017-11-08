@@ -1,6 +1,6 @@
-package com.todolistoriginal.todolist.Service.impl;
+package com.todolistoriginal.todolist.service.impl;
 
-import com.todolistoriginal.todolist.Service.UserService;
+import com.todolistoriginal.todolist.service.UserService;
 import com.todolistoriginal.todolist.entity.User;
 import com.todolistoriginal.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

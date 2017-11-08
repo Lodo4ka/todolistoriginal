@@ -29,9 +29,9 @@ public class Tag {
         addTodo(todo, false);
     }
 
-    public void addTodo(Todo todo, boolean otherSideHasBeenAlreadySet){
+    public void addTodo(Todo todo, boolean otherSideWasAffected) {
         getTodoList().add(todo);
-        if(otherSideHasBeenAlreadySet){
+        if (otherSideWasAffected) {
             return;
         }
 
