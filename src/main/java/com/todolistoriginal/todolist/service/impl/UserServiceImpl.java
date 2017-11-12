@@ -4,6 +4,9 @@ import com.todolistoriginal.todolist.service.UserService;
 import com.todolistoriginal.todolist.entity.User;
 import com.todolistoriginal.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository repository;
@@ -33,5 +36,13 @@ public class UserServiceImpl implements UserService {
         List<User> users = repository.findByLoginAndPassword(login, password);
         //That's check for first found user
         return users.size() == 1 ? users.get(0) : null;
+    }
+
+
+
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        User foundName = repository.getByName(username);
+        return foundName;
     }
 }

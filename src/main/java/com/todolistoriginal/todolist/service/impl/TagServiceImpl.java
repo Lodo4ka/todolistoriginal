@@ -4,6 +4,9 @@ import com.todolistoriginal.todolist.service.TagService;
 import com.todolistoriginal.todolist.entity.Tag;
 import com.todolistoriginal.todolist.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TagServiceImpl implements TagService{
+public class TagServiceImpl implements TagService, UserDetailsService{
 
     @Autowired
     private TagRepository tagRepository;
@@ -26,5 +29,11 @@ public class TagServiceImpl implements TagService{
             Tag foundTag = tagRepository.findByName(tag.getName());
             return foundTag != null ? foundTag : tagRepository.save(tag);
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(final String s) throws UsernameNotFoundException {
+
+        return null;
     }
 }
