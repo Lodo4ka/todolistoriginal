@@ -21,31 +21,31 @@ public class TodoRest {
     private Long userId;
 
     @RequestMapping(path = "/todo", method = RequestMethod.POST)
-    public ResponseEntity<Todo> create(HttpServletRequest request, @RequestBody Todo todo) {
+    public ResponseEntity<Todo> create(@RequestBody Todo todo) {
         Todo result = todoService.create(userId, todo);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/todo/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Todo> get(HttpServletRequest request, @PathVariable Long id) {
+    public ResponseEntity<Todo> get( @PathVariable Long id) {
         Todo result = todoService.get(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/todo", method = RequestMethod.PUT)
-    public ResponseEntity<Todo> update(HttpServletRequest request, @RequestBody Todo todo){
+    public ResponseEntity<Todo> update(@RequestBody Todo todo){
         Todo result = todoService.update(todo.getId(), todo);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/todoList", method = RequestMethod.GET)
-    public ResponseEntity<List<Todo>> getList(HttpServletRequest request){
+    public ResponseEntity<List<Todo>> getList(){
         List<Todo> resulst = todoService.getList();
         return new ResponseEntity<List<Todo>>(resulst, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/todo/{id}", method = RequestMethod.DELETE)
-    public void remove(HttpServletRequest request, @PathVariable Long todoId){
+    public void remove(@PathVariable Long todoId){
         todoService.remove(todoId);
     }
 
